@@ -1,0 +1,18 @@
+{"results":[
+    {% set tasks = api.get('/task') %}
+    {% for task in tasks %}
+        { 
+           {% for k,v in task %}
+                {% if k != "parameters" %}
+                    "{{k}}":"{{v}}"{% if loop.index < task|length %},{% endif %}
+                {% else %}
+                    "{{k}}":{{v}}{% if loop.index < task|length %},{% endif %}
+                {% endif %}
+           {% endfor %}
+        }{% if loop.index < tasks|length %},{% endif %}
+    {% endfor %}
+
+   ]
+}
+
+

@@ -1,0 +1,64 @@
+// 3.2
+// Categories
+// --------------------------------------------------
+// Product Filters
+// Category Header
+// Search Within
+// Pagination
+// Product Sorting
+// Products
+    // Images
+    // Description
+    
+// Product Filters
+.category-filters {
+    .filter {
+        margin-bottom: 14px;
+        .panel {
+            background-color: #ffffff; border: none;
+            .box-shadow; // mixins
+            .border-radius(4px); //mixins
+
+
+            // Panel header
+            .panel-heading {
+                padding: .5em 0;
+                background-color: #ffffff; padding: 0;
+                a {
+                    color: #808080; display:block; font-size: 12px; font-weight: 700; outline: 0; padding: 10px; text-decoration: none; text-transform: uppercase;
+                    i:last-child { float: right;}
+                }
+            }
+
+
+            // Panel body
+            .panel-body {
+                border-top: 1px dashed #e5e5e5;
+                ul li {
+                    font-size: 12px; padding:4px 0;
+                    a.disabled { color: #aaa; }
+                }
+            }
+
+
+            // Review stars
+            .filter-stars {
+                span { font-size: 1.5em; }
+                a span { color: #ccc; }
+                a.active span { color: #ffc125; }
+            }
+        }
+        .panel-group { margin: 0;}
+    }
+
+    // Clear selected filter
+    .filter-clear { 
+        a { 
+            border: 1px solid #d9d9d9; display:block; background-color: #fff; border-radius: .25em; font-size: 11px; margin: .25em 0; padding:.5em 1em;
+            i:first-child { padding-right: 5px; }
+            &:hover { text-decoration: none; background-color: #e5e5e5; }
+        }
+    }
+}
+
+

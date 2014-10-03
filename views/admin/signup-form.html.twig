@@ -1,0 +1,55 @@
+{{ forms.begin('signup','','post',{ class:'form-horizontal' }) }}
+    {{ forms.hidden('signup[token]', app.request.get.token) }}
+    <div class="form-group">
+        <label class="control-label col-sm-3 col-md-2 col-lg-2 col-lg-offset-2" for="input2">Email
+            <span class="text-danger">*</span>
+        </label>
+        <div class="col-sm-9 col-md-5 col-lg-5">
+            {{ forms.email('signup[email]', app.request.get.email, {class:'form-control parsley-validated', required:true, placeholder: "Email"}) }}
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5 col-lg-offset-4">
+            <div class="validation">{{ forms.errorlist(create_error, 'email') }}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3 col-md-2 col-lg-2 col-lg-offset-2" for="input2">Email Confirmation
+            <span class="text-danger">*</span>
+        </label>
+        <div class="col-sm-9 col-md-5 col-lg-5">
+            {{ forms.email('signup[confirm_email]', '', {class:'form-control parsley-validated', required:true, placeholder: "Email Confirmation"}) }}
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5 col-lg-offset-4">
+            <div class="validation">{{ forms.errorlist(create_error, 'confirm_email') }}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3 col-md-2 col-lg-2 col-lg-offset-2" for="input2">Password
+            <span class="text-danger">*</span>
+        </label>
+        <div class="col-sm-9 col-md-5 col-lg-5">
+            {{ forms.password('signup[password]', '', {class:'form-control parsley-validated', required:true, placeholder: "Password"}) }}
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5 col-lg-offset-4">
+            <div class="validation">{{ forms.errorlist(create_error, 'password') }}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3 col-md-2 col-lg-2 col-lg-offset-2" for="input2">Password Confirmation
+            <span class="text-danger">*</span>
+        </label>
+        <div class="col-sm-9 col-md-5 col-lg-5">
+            {{ forms.password('signup[confirm_password]', '', {class:'form-control parsley-validated', required:true, placeholder: "Password Confirmation"}) }}
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5 col-lg-offset-4">
+            <div class="validation">{{ forms.errorlist(create_error, 'confirm_password') }}</div>
+        </div>
+    </div>
+    {{ forms.hidden('signup[token]', app.request.get.token, {'required':'true','error':create_error.token}) }}
+    <div class="actions">
+        <div class="row">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-8 col-lg-offset-4">
+                {{ forms.submit('signup[action]', 'search', 'Submit', {class:'btn btn-default'})}}
+            </div>
+        </div>
+    </div>
+{{ forms.end() }}

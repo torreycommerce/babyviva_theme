@@ -1,0 +1,16 @@
+{% extends "/_layouts/theme.html.twig" %}
+
+{% block content %}
+
+    <h1>All Brands</h1>
+
+    {# Retrieve all brands  #}
+    {% set all_brands = api.get('product/allbrands' ) %}
+    <ul>
+    {% for brand in all_brands %}
+      {% if brand.brand is not empty %}
+        <li>{{ brand.brand}}</li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+{% endblock %}

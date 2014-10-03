@@ -1,0 +1,16 @@
+{
+  "rules":[
+    {
+      "remember_me":"boolean"
+    },
+    {
+      "password":"authenticate"
+    }
+  ],
+  "attributeLabels":{
+    "email":"Email",
+    "password":"Password",
+    "remember_me":"Remember me",
+    "email":"Email"
+  }
+}

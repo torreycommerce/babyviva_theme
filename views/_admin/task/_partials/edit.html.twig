@@ -1,0 +1,78 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% import "/_admin/_macros/form-elements.html.twig" as form %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({ 'Tasks':'/task','Edit task':''}) }}
+{% endblock %}
+
+{% set task = api.get('/task', {'id': id}) %}
+{% block content %}
+    {% if app.request.post.task %}
+        {% if api.put('/task/' ~ id, app.request.post.task) %}
+            {% do app.redirect('/task') %}
+        {% else %}
+            {% set errors = api.error() %}
+        {% endif %}
+    {% endif %}
+
+    <h1>Edit task</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                {{ form.begin('task') }}
+                    <div class="form-group">
+                        {{ form.text('name', task.name) }}
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="form-group">
+                        {{ form.textarea('description', task.description) }}
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="form-group">
+                        {{ form.text('interval', task.interval, {'class': 'form-control popovers', 'data-trigger': 'hover', 'data-toggle': 'popover', 'data-content': 'Cron format: (Minute(0-59) Hour(0-23) DoM(1-31) MoY(1-12) DoW(1-7) Year(1900-3000)).', 'data-original-title': 'Cron format'}) }}
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="form-group">
+                        {{ form.select('type', task.type, {"command":"Command"}) }}
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="form-group">
+                        {{ form.text('command', task.command) }}
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="form-group">
+                        {{ form.text('parameters', task.parameters) }}
+                    </div>
+                    <div style="clear: both"></div>
+                    <h3>Automatic set parameters</h3>
+                    <hr />
+                    <div class="form-group">
+                        {{ form.date("last_start", task.last_start|date("Y-m-d H:i")) }}
+                    </div>
+                    <br /><hr />
+                    <div class="form-group">
+                        {{ form.date("last_end", task.last_end|date("Y-m-d H:i")) }}
+                    </div>
+                    <br /><hr />
+                    <div class="form-group">
+                        {{ form.date("next_run", task.next_run|date("Y-m-d H:i")) }}
+                    </div>
+                    <br /><hr />
+                    <div class="form-group">
+                        {{ form.text("ip_address", task.ip_address) }}
+                    </div>
+                    <br /><hr />
+                    <div class="form-group">
+                        {{ form.text("last_pid", task.last_pid) }}
+                    </div>
+                    <br /><hr />
+                    <div class="form-group">
+                        {{ form.submit("submit", "Save") }}
+                        <a href="{{ app.url }}/task" class="btn btn-default">Cancel</a>
+                    </div>
+                {{ form.end() }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

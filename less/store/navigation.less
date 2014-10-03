@@ -1,0 +1,146 @@
+// 2.5
+// Navigation
+// --------------------------------------------------
+
+
+// Desktop nav
+// --------------------------------------------------
+
+nav#main {
+    background: @nav-bg; border-color: lighten(@nav-text, 40%); border-top-style: dashed; border-top-width: 1px; border-bottom-style: dashed; border-bottom-width: 1px; padding-left:0; padding-right:0;
+}
+
+nav#nav-desktop-main {
+    ul li {
+        a {
+            color: @nav-text; font-size: 15px; outline: none; padding: 16px 12px;
+            span.caret { border-top-color: @nav-text; border-bottom-color: @nav-text; margin-left: 8px;}
+        }
+        &:active, &:focus, &:hover {            
+            a {
+                background-color: @nav-bg-hover; color: @nav-text-hover;
+‘‘‘‘                span.caret { border-top-color: @nav-text-hover; border-bottom-color: @nav-text-hover;}
+            }
+        }        
+    }
+}
+
+nav#nav-desktop-main {
+    @media (min-width: @screen-md) and (max-width: @screen-md-max) {
+        ul li a { padding: 16px 8px;}
+    }
+}
+
+
+// Dropdown Menu
+nav#nav-desktop-main ul li ul.dropdown-menu {
+    background-color: @nav-dropdown-bg;
+    li a {
+        color: @nav-dropdown-text; font-size: 13px;
+        &:hover { color: @nav-dropdown-text-hover; background-color: @nav-dropdown-bg-hover;}
+    }
+}
+
+// Dropdown Menu - Active
+nav#nav-desktop-main ul li:hover ul.dropdown-menu { display: block;}
+nav#nav-desktop-main ul.dropdown-menu {
+    margin: 0; padding: 0; border: 0;    
+    li {
+        margin: 0; padding: 0;
+        a { border-width: 0; padding-top: 8px; padding-bottom: 8px;}
+        &:nth-child(odd) { } // Odd dropdown rows
+        &:nth-child(even) { } // Even dropdown rows
+    }
+}
+
+// Search
+div.search {
+    padding: 8px 14px;
+    form {        
+        &:active, &:focus, &:hover { .box-shadow(0px; 0px; 5px; rgba(46, 199, 229, 0.75));} // mixins    
+        input {
+            border-color: #b8c9cc;
+            &:active, &:focus, &:hover {
+                .box-shadow(0px; 0px; 10px; rgba(0, 0, 0, 0)); // mixins
+            }
+        }
+        a {
+            border-color: #b8c9cc; color: #335E67;
+            &:hover { background-color: #ffffff;}
+        }
+    }
+}
+
+
+// Mobile nav
+// --------------------------------------------------
+
+// nav.mobile-nav {
+
+//     background-color: #335E67; display: none; height: 105%; margin-top: 0; position: fixed; top: 0; width: 240px; z-index:1000;
+//     .box-shadow( -3px 0px 3px rgba(0, 0, 0, 0.25)); // mixins
+    
+
+//     // Close btn
+//     .nav-close {
+
+//         background-color: #335E67; color: #ffffff; cursor: pointer; display: block; left: -39px; padding: 8px 14px 10px 14px; position: absolute; text-decoration: none; z-index: 1001;
+//         .box-shadow( -3px 0px 3px rgba(0, 0, 0, 0.25)); // mixins
+//         &:active, &:focus, &:hover { background-color: #DC61AD;}
+//     }
+
+//     // Nav list
+//      ul {
+
+//         margin-bottom: 0; margin-left: 0; margin-right: 0; width: 220px; overflow-y: auto;        
+
+//         // List
+//         li { font-size: 12px; line-height: normal; margin: 0; }
+
+//         // List links
+//         li a {
+//             background-color: #335E67; color: #ffffff; float: left; font-size: 1.0em; line-height: 1.25em; padding: 1.0em; text-decoration: none; width: 220px;
+//             i { margin-right: 0.5em;} // Icon
+//             i.fa-chevron-right { float: right; } // Chevron right
+//             &:active, &:focus, &:hover { color: #fff; background-color: #DC61AD;}
+//         }
+//     }
+
+//     // Sub-nav
+//     .sub-nav {
+
+//         margin-left: 20px; width: 200px;
+//         .box-shadow( -3px 0px 3px rgba(0, 0, 0, 0.25)); // mixins
+
+//         // Subnav list
+//         ul { overflow-y: auto;}
+
+//         // List
+//         ul li {}
+
+//         // List links
+//         ul li a { width: 180px;}        
+//     }
+// }
+
+// Navigation Sidebar
+// --------------------------------------------------
+
+.navigation {
+    .navbar {
+        border: 0 none;
+        .sidebar {
+            background-color: #ffffff;
+            .nav > li > a {
+                background-color: #ffffff; color: #bf568b; text-align: center;
+                &:active, &:focus, &:hover { background-color: #bf568b; color: #ffffff;}
+            }
+
+            .nav > li.active > a {
+                background-color: #bf568b; color: #ffffff;
+            }
+            
+            .box-shadow; // mixins
+        }
+    }
+}

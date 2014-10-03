@@ -1,0 +1,12 @@
+
+{
+  "rules":[
+    {
+      "email,password":"required"
+    }
+  ],
+  "attributeLabels":{ 
+    "email":"Email",
+    "password":"Password"
+  }
+}

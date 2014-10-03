@@ -1,0 +1,9 @@
+{% set id = app.request.path %}
+
+{% if id == 'create' %}
+    {% include '/_admin/task/_partials/new.html.twig' %}
+{% elseif id|integer != null %}
+    {% include '/_admin/task/_partials/edit.html.twig' %}
+{% else %}
+    {% include '/_admin/task/_partials/list.html.twig' %}
+{% endif %}

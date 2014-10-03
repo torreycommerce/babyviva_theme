@@ -1,0 +1,42 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({ 'Tasks':'/task'}) }}
+{% endblock %}
+
+{% block content %}
+    {% set results = api.get('task',{limit:100})%}
+    <h1>Task manager</h1>
+        
+        <div class="container" id="task_manager">
+            <div class="row">
+                <div class="col-md-3 col-xs-12 col-sm-6">
+                    <a href="{{ app.url }}/task/create" class="btn btn-success pull-left"><i class="fa fa-plus"></i> New Item</a></p>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                {% for x in results %}
+                    <div class="col-md-3 col-xs-12 col-sm-6" id="{{ x.id }}">
+                        <a class="info-tiles tiles-toyo" href="{{ app.url }}/task/{{ x.id }}">
+                            <div class="tiles-heading">{{ x.type|title }}</div>
+                            <div class="tiles-body-alt">
+                                <i class="fa fa-cogs"></i>
+                                <div class="text-center">{{ x.name }}</div>
+                                <small>
+                                    {{ x.command }}<br />
+                                    Awake: <span class="timing"></span><br />
+                                    Next run: <span class="next">{{ x.next_run|date("m/d/Y H:i") }}</span><br />
+                                </small>
+                            </div>
+                            <div class="tiles-footer">(Last run: {{ x.last_start|date("m/d/Y H:i") }} - {{ x.last_end|date("m/d/Y H:i") }})</div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </p>
+{% endblock %}
+

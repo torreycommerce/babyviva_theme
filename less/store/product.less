@@ -1,0 +1,210 @@
+// 3.3
+// Product
+// --------------------------------------------------
+// Images
+// Details
+// Header
+// Reviews
+// Pricing
+// Actions
+    // Desktop
+    // Mobile
+// Tabs
+
+
+// Images
+#product-images {
+    margin-bottom: 20px;
+    #image-main.thumbnail{
+        max-height: 451px;
+        text-align: center;
+        
+        .helper{
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        img{
+            display: inline-block;
+            max-width: 457px;
+            max-height: 451px;
+            vertical-align: middle;
+        }
+    }
+    #image-main{
+        .thumbnail{
+            max-height: 451px;
+            text-align: center;
+
+            .helper{
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+            }
+            img, 
+            iframe {
+                display: inline-block;
+                @media (max-width: @screen-md-min) {
+                    max-width: 457px;
+                    max-height: 451px;
+                }
+                @media (max-width: @screen-md-max) {
+                    max-width: 250px;
+                    max-height: 250px;
+                }
+                @media (max-width: @screen-xs-max) {
+                    max-width: 290px;
+                    max-height: 290px;
+                }
+                vertical-align: middle;
+            }
+        }
+    }
+    .thumbnail.video {
+        img {
+            padding: 3px 0;
+            @media (min-width: @screen-lg-min) {
+                padding: 7px 0;
+            }
+        }
+        cursor: pointer;
+        .video-icon {
+            color: #000;
+            display: block;
+            margin-top: 5px;
+            margin-left: 6px;
+            opacity: .5;
+            position: absolute;            
+
+            @media (min-width: @screen-lg-min) {
+                margin-left:14px;
+                margin-top:12px;
+                font-size: 30px;
+            }
+        }
+    }
+    .thumbnail.video:hover {
+        .video-icon {
+            opacity: 1;
+        }
+    }
+    
+}
+
+#image-carousel { padding-top: 10px;}
+
+// Details
+#product-details {
+
+}
+
+// Header
+section#product-details header {
+    div.brand { margin: 0 0 5px 0; }
+    h2.name { }
+}
+
+// Reviews
+section#product-details div.reviews {
+    border-bottom: 1px solid #dddddd;
+    font-size: 12px;
+    margin-bottom: 15px;
+    padding-bottom: 4px;
+    ul {
+        margin-bottom: 0;
+        li:first-child { padding-left: 0;}
+        li.stars { padding-right: 1px;}
+        li.average { padding-left: 1px;}
+        li.submit {}
+    }
+}
+
+// Pricing
+section#product-details div#product-price {
+    padding-bottom: 15px;
+    div.price,
+    div.price-range {
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 20px;
+        padding-bottom: 2px;
+    }
+    div.stock {
+        display: inline-block;
+        color: #009900;
+        font-size: 12px;
+        padding-bottom: 2px;
+    }
+}
+
+// Pricing Detials
+.product-price-details {
+    ul {
+        margin-bottom: 0;
+        li {
+            color: lighten(@font-color, 25%);
+            font-size: 12px;
+            margin-right: 10px;
+            padding-left: 0;
+        }
+        li.price-regular { }
+        li.percent { }
+        li.price-per-month { }        
+    }
+}
+
+// Actions
+.actions {
+    background: none;
+    margin-bottom: 10px;
+    .quantity-input-group { margin-bottom: 10px;}
+    .btn-add-to-cart { margin-bottom: 10px;}
+    .btn-toolbar .btn-group {
+        float: none;
+    }
+    // Actions Desktop
+    @media (min-width: @screen-md-min) {
+        margin-bottom: 10px;
+        .quantity-input-group { margin-bottom: 0;}
+        .btn-add-to-cart { margin-bottom: 0px;}
+    }
+}
+
+#collection{
+    .estimated-time{
+        color: #000;
+        font-weight: 700;
+        font-size: 12px;
+    }
+}
+
+// Short Description
+#short-description {
+    background-color: #ffffff;
+    border: 1px solid #DDDDDD;
+    padding: 20px;
+    .description-content {
+
+    }
+}
+
+// Product - Tabs
+section#product-tabs, section#product-tabs-mobile {
+    ul { padding-top: 10px;}
+    div.panel {
+        border-left:    1px solid #dddddd;
+        border-right:   1px solid #dddddd;
+        border-bottom:  1px solid #dddddd;
+    }
+}
+
+// Product - Tab content
+section#product-tabs div.tab-content,
+section#product-tabs-mobile div.tab-content {
+    // Lists
+    ul {
+        padding: 0px 20px 10px 20px;
+        li {  }
+    }
+}

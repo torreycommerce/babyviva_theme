@@ -1,0 +1,59 @@
+{% extends "/_layouts/theme.html.twig" %}
+{% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/base.html.twig" as base %}
+
+{% block content %}
+    {% set res = api.post('site/pending', {'email': app.request.get.email, 'token': app.request.get.token}) %}
+    {% if not res%}
+        {% do app.redirect(app.url, {'error': 'You have been redirected because the area is restricted. Please contact an administrator'}) %}
+    {% else %}
+        {% if app.request.post.signup %}
+            {% set r = api.post('/site/signup', app.request.post.signup) %}
+            {% if  r%}
+                {% do app.redirect('/../admin') %}
+                {#
+                {{ dump(r) }}
+                #}
+            {% else %}
+                {% set create_error = api.error %}
+            {% endif %}
+        {% endif %}
+
+        {% if app.request.post.join %} 
+            {% set r = api.post('/site/join', app.request.post.join) %}
+            {% if  r%}
+                {% do app.redirect('/../admin') %}
+                {#
+                {{ dump(r) }}
+                #}
+            {% else %}
+                {% set create_error = api.error %}
+            {% endif %}
+        {% endif %}
+    
+        <div id="content-main" class="container">
+            <div class="row">
+                <div class="col-md-12">
+                        <h1>You have been invited to join <b>{{ app.request.get.store|upper }}</b></h1>
+                        {% set response = api.get('clientaccount',{'query': {'email': app.request.get.email} })|first %}
+                        {% if response.id %}
+                            {{ forms.begin('join','','post',{ class:'form-horizontal' }) }}
+                            <div class="actions">
+                                <div class="row">
+                                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-8 col-lg-offset-4">
+                                        {{ forms.hidden('join[email]', app.request.get.email) }}
+                                        {{ forms.hidden('join[token]', app.request.get.token) }}
+                                        {{ forms.submit('join[action]', 'search', 'Join the store', {class:'btn btn-success'})}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{ forms.end() }}
+                        {% else %}
+                            {% include '/admin/signup-form.html.twig' %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

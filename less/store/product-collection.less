@@ -1,0 +1,120 @@
+// 3.4
+// Collections
+// --------------------------------------------------
+
+#collection-details {
+
+    #product-details {
+        .btn-toolbar {
+            margin-bottom: 20px;
+        }
+    }
+
+    .description-content{
+        a{font-size: 12px;}
+    }
+    #product-images {
+        .thumbnail.video {
+            img {
+                padding: 3px 0;
+                @media (min-width: @screen-lg-min) {
+                    padding: 8px 0;
+                }
+            }
+            cursor: pointer;
+            .video-icon {
+                margin-top:5px;
+                margin-left:6px;
+
+                @media (min-width: @screen-lg-min) {
+                    margin-left:22px;
+                    margin-top:20px;
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+}
+
+#collection {
+
+    margin-top: 40px;
+    // Panel Tabs
+    .panel-tabs {
+        ul li a { border-bottom: 1px solid #DDDDDD;}
+    }
+
+    // Tab Content
+    .tab-content {
+        border-top: 1px solid #000000; margin-top: -1px; padding: 0;
+        .tab-pane {}
+    }
+
+    .btn-toolbar .btn-group {
+        float: none;
+    }
+    
+    // Panel
+    .panel {
+        border-top: 0 none; border-radius: 0;
+
+        // Panel Toolbars        
+        .panel-heading,
+        .panel-footer {
+
+            border: 0 none; padding-left: 5px; padding-right: 5px;
+            .btn-toolbar {
+                margin-left: 0;
+                .btn { padding: 6px 6px;}
+                .btn i { display: none;} // Removes button icons
+            }
+
+            @media (min-width: @screen-sm-min) {
+                padding-left: 15px; padding-right: 15px;
+                .btn-toolbar {
+                    text-align: right;
+                    .btn { padding: 6px 12px;}
+                    .btn i { display: inline-block;} // Adds button icons
+                }
+            }
+        }
+
+        .panel-body {
+            .pane-group {
+                // Header
+                .group-header {
+                    border-bottom: 1px solid #E6E6E6; padding: 10px 0;
+                }
+                // Product
+                .product {
+                    border-bottom: 1px solid #e6e6e6; padding:10px 0;
+                    // Image
+                    .image img { border: 0;}
+                    // Details
+                    .details {                        
+                        .color { color: #666666; font-size: 12px;}
+                        .stock { color: #666666; font-size: 12px;}
+                        .model { color: #666666; font-size: 12px;}
+                    }
+                    // Pricing
+                    .pricing {
+                        .current { color: #008000; font-weight: bold;}
+                        .per-month { color: #000000; font-weight: bold;}
+                        .previous { color: #FF0000; font-weight: normal; text-decoration: line-through;}
+                        .percent { color: #FF0000; font-weight: bold;}
+                    }
+                }
+            }
+        }
+
+        // Variations
+        .variations {
+            .product {
+                .actions { margin: 10px 0 0 0;}                
+                @media (min-width: @screen-sm-max) {
+                    .actions { float: right; margin: 0;}                    
+                }
+            }
+        }
+    }
+}

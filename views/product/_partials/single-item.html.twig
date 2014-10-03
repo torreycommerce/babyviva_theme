@@ -1,0 +1,355 @@
+<span  itemscope itemtype="http://data-vocabulary.org/Product"> {# Google Rich Snippet Start Product Scope #}
+<div class="row">
+    {# Beging product images #}
+    <section id="product-images" class="col-xs-12 col-sm-5 col-md-4 col-lg-5">
+        {# Begin main image #}
+        {% set main_image_id = product.images.0.id is not empty ? product.images.0.id : parent.images.0.id %}
+        {% set main_image_id = main_image_id is empty ? 'default' : main_image_id %}
+        <div id="image-main">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="thumbnail">
+                        <span class="helper hidden-xs"></span>
+                        <div id="main-product-video" style="display:none"></div>
+                        <img id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# Begin main image #}
+        {# Begin image carousel #}
+        {% if product.images is not empty or product.videos is not empty %}
+        <div id="image-carousel" class="hidden-xs row">
+            <div class="image-carousel">
+                <div id="image-carousel-{{product.id}}" class="carousel">
+                    <div>
+                        <div class="item active">
+                            {% for image in product.images %}
+                            {% set name = image.name is not empty ? image.name : product.name %}
+                            <div class="col-sm-2">
+                                <div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
+                                    <img itemprop="image" class="" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="" />
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% if product.videos is not empty %}
+                            {% do app.asset.js(app.url ~ '/js/video-player.js') %}
+                            {% for video in product.videos %}
+                            <div class="col-sm-2">
+                                <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
+                                    <i class="video-icon fa fa-play-circle"></i><img src="">
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {# End image carousel #}
+    </section>
+    {# End product images #}
+
+    {# Begin Product Details #}
+    <section id="product-info" class="col-xs-12 col-sm-7 col-md-8 col-lg-7">
+        <div class="row">
+            <section id="product-details" class="col-xs-12">
+                {# Begin Product Heading Group #}
+                <header>
+                    <div itemprop="brand" class="brand"><a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a></div>
+                    <span itemprop="name"><h2 class="name">{{product.title}}</h2></span>
+                </header>
+                {# End Product Heading Group #}
+                {# Begin Review Stars #}
+                <div class="reviews">
+                  {%  set review_score = product.review_score %}
+                  {% if review_score > 0 %}
+                    {# Google Rich Snippet Start ReviewAGG Scope #}
+                    <span itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+                    <ul class="list-inline">
+                        {# {% set review_score = product.product|average('review_score') %} This always return NULL  #}
+                        <li class="stars">
+                          <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
+                        </li>
+                        <li class="average">
+                          <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">
+                              {# Google Rich Snippet Start rating + count #}
+                              <span itemprop="rating">{{ (review_score * 5)|number_format(1) }}</span> {% if reviews.num_total %}(<span itemprop="count">{{ reviews.num_total }}</span>){% endif %}</a>
+                              {# Google Rich Snippet rating + count #}
+                        </li>
+                        <li class="submit">
+                          <a href="{{ app.url }}/review/id/{{product.id}}">Write a review</a>
+                        </li>
+                    </ul>
+                  </span>
+                  {# Google Rich Snippet End Review Scope #}
+                    {% endif %}
+                </div>
+                {# End Review Stars #}
+
+                {# Begin Product Prices #}
+                {# <pre>{{ dump(product) }}</pre> #}
+                {% if product.variant[0].price > 0 %}
+                {# Google Rich Snippet Start Offer Scope #}
+                <div id="product-price"  itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+                    {% set stock_description = product.variant[0].inventory_quantity > 0 ? 'In Stock' :  product.variant[0].inventory_shipping_estimate is not empty ? product.variant[0].inventory_shipping_estimate : '' %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {# Google Rich Snippet Start Price + Currency #}
+                            <div itemprop="price" class="price">{{ prod.price(product.variant[0].price) }}</div>
+                            <meta itemprop="priceCurrency" content="USD" />
+                            {# Google Rich Snippet End Price + Currency #}
+                            {% if stock_description is defined and stock_description is not empty %}
+                              {% if 'order' in stock_description %}
+                                {% set availability_content = 'preorder' %}
+                              {% elseif 'week' in stock_description or 'day' in stock_description %}
+                                {% set availability_content = 'in_stock' %}
+                              {% elseif 'store' in stock_description %}
+                                {% set availability_content = 'instore_only' %}
+                              {% else %}
+                                {% set availability_content = 'out_of_stock' %}
+                              {%endif %}
+                            {% else %}
+                              {% set availability_content = 'out_of_stock' %}
+                            {% endif %}
+
+                            {# Google Rich Snippet Start Avaibility #}
+                            <div class="stock" itemprop="availability" content="{{availability_content}}">
+                            {# Google Rich Snippet End Avaibility #}
+                            {% if stock_description is defined and stock_description is not empty %}
+                              {{stock_description}}
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="product-price-details">
+
+                                {% if (product.variant[0].price != product.variant[0].compare_price and product.variant[0].compare_price is not empty) or
+                                   (product.variant[0].save_price > 1) or (product.variant[0].price >= 100) %}
+                                  <ul class="list-unstyled list-inline">
+                                      {% if product.variant[0].price != product.variant[0].compare_price and product.variant[0].compare_price is not empty %}
+                                      <li class="price-regular">
+                                          Compare at {{ prod.price(product.variant[0].compare_price) }}
+                                      </li>
+                                      {% endif %}
+                                      {% if product.variant[0].save_price > 1 %}
+                                      <li class="percent">
+                                          Save up to {{ prod.saveprice(product.variant[0].save_price ) }} {{ prod.savepercent(product.variant[0].save_percent) }}
+                                      </li>
+                                      {% endif %}
+                                      {% if product.variant[0].price >= 100 %}
+                                      <li class="price-per-month">
+                                          <span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
+                                              {{ prod.billmelater(product.variant[0].price) }}
+                                          </span>
+                                      </li>
+                                      {% endif %}
+                                  </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# Google Rich Snippet End Offer Scope #}
+
+                {# End Product Prices #}
+                {# Begin actions desktop #}
+                {% if app.user.id is not empty %}
+                    {% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
+                    {% if registries is not empty %}
+                        {% set registry_ids = [] %}
+                        {% for registry in registries %}
+                            {% set registry_ids = registry_ids|merge([registry.id]) %}
+                        {% endfor %}
+                        {% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:product.id}}) %}
+                    {% endif %}
+                    {% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
+                    {% if wishlists is not empty %}
+                        {% set wishlist_ids = [] %}
+                        {% for wishlist in wishlists %}
+                            {% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
+                        {% endfor %}
+                        {% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
+                    {% endif %}
+                {% endif %}
+
+                {# </div> ????? #}
+                {% endif %}
+
+
+                {% if product.variant[0].price > 0 %}
+                <div class="actions hidden-sm hidden-xs">
+                    <div class="row">
+                        <div class="col-md-12">
+                        <form method="post" id="productForm" action="{{ app.url }}/product/route" class="form-inline">
+                            <div class="btn-toolbar">
+
+                                {% if product.variant[0]['inventory_quantity'] is defined and product.variant[0]['inventory_minimum_quantity'] is defined and
+                                  product.variant[0]['inventory_policy'] is defined and (product.variant[0]['inventory_policy'] == 'continue' or
+                                  product.variant[0]['inventory_quantity'] > product.variant[0]['inventory_minimum_quantity'] ) %}
+                                {# Begin product quantity #}
+                                <div class="quantity-input-group">
+                                    <label for="quantity-selector" class="control-label">Qty</label>
+                                    <div class="input-group">
+                                      <div class="input-group-btn">
+                                            <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                        </div>
+                                        <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{product.variant[0].id}}]">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                      </div>
+                                    </div>
+
+                                </div>
+                                {# End product quantity #}
+                                {# Begin add to cart button #}
+                                <button type="submit" class="btn btn-add-to-cart" name="action" value="cart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Add to Cart</span>
+                                </button>
+
+                                {% endif %}
+
+                                {% include "/product/_partials/list/buttons.html.twig" %}
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                {# End actions desktop #}
+                {# Begin actions mobile #}
+                <div class="actions hidden-lg hidden-md">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <form method="post" id="productForm" action="{{ app.url }}/product/route" class="form-inline">
+
+                                <div class="btn-toolbar">
+                                    <div class="row">
+                                        {% if product.variant[0]['inventory_quantity'] is defined and product.variant[0]['inventory_minimum_quantity'] is defined and
+                                          product.variant[0]['inventory_policy'] is defined and (product.variant[0]['inventory_policy'] == 'continue' or
+                                          product.variant[0]['inventory_quantity'] > product.variant[0]['inventory_minimum_quantity'] ) %}
+                                        {# Begin product quantity #}
+                                        <div class="col-sm-12 col-xs-12">
+
+                                            <div class="quantity-input-group">
+                                                <label for="add-to-cart-quantity" class="control-label">Qty</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                                    </div>
+                                                    <input id="add-to-cart-quantity" class="form-control" type="text" value="1" maxlength="2" placeholder="1" name="items[{{product.variant[0].id}}]">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        {# End product quantity #}
+                                    </div>
+                                    <div class="actions row">
+                                        {# Begin buy button #}
+                                        <div class="col-sm-12 col-xs-12">
+                                            <button type="submit" name="action" value="cart" class="btn btn-add-to-cart btn-block">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                <span>Add to Cart</span>
+                                            </button>
+
+
+                                        </div>
+                                        {# End buy button #}
+                                        {% endif %}
+                                        {% include "/product/_partials/list/buttons-mobile.html.twig" %}
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {# End actions mobile #}
+                {# Begin social sharing #}
+                {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
+                    <div id="social">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="text">Share this item:</span>
+                                {{ social.sharing_buttons(app.params.social_settings, product) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {# End social sharing #}
+            </section>
+        </div>
+        {# End product details #}
+        {# Begin product tabs #}
+        <div class="row hidden-sm hidden-xs">
+            <section id="product-tabs" class="col-sm-12 col-md-12">
+                {# Begin tabs nav #}
+                <ul class="nav nav-tabs">
+                    {% if product.description is not empty %}
+                    <li class="active"><a href="#details" data-toggle="tab">Description</a></li>
+                    {% endif %}
+                    <li {% if product.description is empty %}class="active"{% endif %}><a href="#reviews" data-toggle="tab">Reviews</a></li>
+                </ul>
+                {# End tabs nav #}
+                {# Begin tab pane #}
+                <div class="panel panel-area">
+                    <div class="tab-content">
+                        {# Begin product description #}
+                        {% if product.description is not empty %}
+                        {% set full_description = parent.description != product.description ? parent.description ~ '<br /><br />' ~ product.description : product.description %}
+                        <div itemprop="description" class="tab-pane active" id="details">{{full_description}}</div>
+                        {% endif %}
+                        {# Begin reviews #}
+                        <div class="tab-pane {% if product.description is empty %}active{% else %}in{% endif %}" id="reviews">
+                            {% set review_snippet = true  %}
+                            {% include "/product/_partials/reviews.html.twig" %}
+                        </div>
+                        {# End reviews #}
+                        {# End product description #}
+                    </div>
+                </div>
+                {# End tab pane #}
+            </section>
+        </div>
+    </section>
+  {# end div TEST Snippet#}
+</div>
+<div class="row hidden-lg hidden-md">
+    <section id="product-tabs-mobile" class="col-md-8 col-md-offset-4">
+        {# Begin tabs nav #}
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#details-mobile" data-toggle="tab">Description</a></li>
+            <li><a href="#reviews-mobile" data-toggle="tab">Reviews</a></li>
+        </ul>
+        {# End tabs nav #}
+        {# Begin tab pane #}
+        <div class="panel panel-area">
+            <div class="tab-content">
+                {# Begin product description #}
+                {% set full_description = parent.description != product.description ? parent.description ~ '<br /><br />' ~ product.description : product.description %}
+                <div class="tab-pane active" id="details-mobile">{{full_description}}</div>
+                {# Begin reviews #}
+                <div class="tab-pane in" id="reviews-mobile">
+                    {% set review_snippet = false  %}
+                    {% include "/product/_partials/reviews.html.twig" %}
+                </div>
+                {# End reviews #}
+                {# End product description #}
+            </div>
+        </div>
+        {# End tab pane #}
+    </section>
+</div>
+</span>
+{# Google Rich Snippet End Product Scope #}
+
+{# End product tab #}
+</div>

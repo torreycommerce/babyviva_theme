@@ -1,0 +1,73 @@
+{% extends "/_layouts/theme.html.twig" %}
+
+{% block content %}
+
+    <h1>This is the title of my page</h1>
+
+
+    {# <p>Display /value after my page</p> #}
+    {% set request = app.request.path | split('/') %}
+
+
+    {% set item  = api.get('/catalog',{query:{id:30914}})|first %}
+
+    {# <pre>{{ dump(item) }}</pre> #}
+    {# Display information from a product #}
+    <style>
+
+
+    .clearable{
+      background:url(http://i.imgur.com/z7ZSYjt.png) no-repeat right -10px center;
+      border:1px solid #999;
+      padding:3px 18px 3px 4px; /* USE the same right padding in jQ! */
+      border-radius:3px;
+      transition: background 0.4s; /*REMOVE THIS LINE IF YOU ENCOUNTER ISSUES IN Chrome (Bug 02.2014)*/
+    }
+    .clearable.x{
+      background-position: right 5px center;
+    }
+    .clearable.onX{
+      cursor:pointer;
+    }
+
+    .clear{
+      cursor:pointer;
+      display:none;
+    }
+    .visi {
+      display:inline;
+    }
+    </style>
+
+    {% set request = app.request.path | split('/') %}
+    <div class='row'>
+      <input class='clearable' type="text" name="nametest" value="" data-metatype="" data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="">
+      <a class='clear' style="color:#bebebe"><i class="fa fa-times-circle"></i> </a>
+    </div>
+
+    <div itemscope itemtype="http://data-vocabulary.org/Product">
+      <span itemprop="brand">ACME</span> <span itemprop="name">Executive Anvil</span>
+      <img itemprop="image" src="anvil_executive.jpg" />
+
+      <span itemprop="description">Sleeker than ACME's Classic Anvil, the
+      Executive Anvil is perfect for the business traveler
+      looking for something to drop from a height.
+    </span>
+    Category: <span itemprop="category" content="Hardware > Tools > Anvils">Anvils</span> Product #:
+    <span itemprop="identifier" content="mpn:925872"> 925872</span>
+
+
+    <span itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+        Regular price: $179.99
+        <meta itemprop="currency" content="USD" />
+        $<span itemprop="price">119.99</span>
+        (Sale ends <time itemprop="priceValidUntil" datetime="2020-11-05">
+          5 November!</time>)
+        Available from: <span itemprop="seller">Executive Objects</span>
+        Condition: <span itemprop="condition" content="used">Previously owned,
+          in excellent condition</span>
+        <span itemprop="availability" content="preorder">In stock! Order now!</span>
+    </span>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,301 @@
+//
+// GLOBAL
+// --------------------------------------------------
+
+// 1.1
+// Base Elements
+// --------------------------------------------------
+
+html,body { margin: 0; padding: 0; border: 0;}
+html { font-size: 62.5%; -webkit-touch-callout: none; -webkit-text-size-adjust: none; -ms-text-size-adjust: 100%; }
+body { }
+
+
+// 1.2
+// Forms
+// --------------------------------------------------
+
+form { }
+label { font-weight: 400; }
+input { }
+.input-white {
+    background-color: @input-white-background-color; border: @input-white-border-color; color: @input-white-text-color;
+    .box-shadow(0px; 0px; 0px; rgba(0, 0, 0, 0)); // mixins
+    &:active, &:focus, &:hover { .box-shadow(0px; 0px; 0px; rgba(0, 0, 0, 0)); } // mixins
+}
+
+textarea { }
+
+// Search withing
+.search-within {    
+    input { border-bottom-color: #E5E1D8; border-left-color: #E5E1D8; border-top-color: #E5E1D8; border-width: 1px; border-style: solid;} 
+    button { border-bottom-color: #E5E1D8; border-right-color: #E5E1D8; border-top-color: #E5E1D8; }
+}
+
+// Quantity Button Group
+.quantity-input-group {
+    float: left; margin-left: 5px; margin-right: 4px;
+    label { display: inline-block; float: left; font-weight: 400; margin-right: 8px; padding-top: 7px; padding-bottom: 6px;}
+    .input-group {
+        float: left; width: 114px;
+        input { width: 3em;}
+    }    
+}
+
+// 1.3
+// Typography
+// --------------------------------------------------
+
+h1, h2, h3, h4, h5, h6 { color: @h-color; font-family: @h-font-family; font-weight: 700; font-style: normal; margin: 5px 0; }
+h1 { font-size: @h1-font;}
+h2 { font-size: @h2-font;}
+h3 { font-size: @h3-font;}
+h4 { font-size: @h4-font;}
+h5 { font-size: @h5-font;}
+h6 { font-size: @h6-font;}
+p { margin: @p-margin;}
+
+.page-header {
+    border-bottom: 1px solid #EEEEEE; color: #de2286; margin-bottom: 10px; margin-top: 0; padding-bottom: 10px; text-transform: uppercase;
+    text-shadow:
+        -3px -3px 0 #fff,
+        3px -3px 0 #fff,
+        -3px 3px 0 #fff,
+        3px 3px 0 #fff;
+}
+
+// 1.4
+// Links and Buttons
+// --------------------------------------------------
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: red;}
+a {
+    color: @link-color;
+    &:active { color: @link-color-active; }
+    &:focus { color: @link-color-focus; }
+    &:hover { color: @link-color-hover; }
+    
+}
+
+button {}
+
+.btn {
+    &.active, &:active {
+        .box-shadow(inset 0 0 0 rgba(0,0,0,0));
+    }
+}
+
+.btn-link-nopadding { font-size:14px; padding:0;}
+
+.btn-default {
+    background-color: @button-default-background; border-color: @button-default-border; color: @button-default-text;
+    &:hover, &:focus { background-color: @button-default-background-hover; border-color: @button-default-border-hover; color: @button-default-text-hover;}
+    &:active { background-color: @button-default-background-active; border-color: @button-default-border-active; color: @button-default-text-active; }    
+}
+
+.btn-neutral {
+    background-color: @button-neutral-background; border-color: @button-neutral-border; color: @button-neutral-text;
+    &:hover, &:focus { background-color: @button-neutral-background-hover; border-color: @button-neutral-border-hover; color: @button-neutral-text-hover;}
+    &:active { background-color: @button-neutral-background-active; border-color: @button-neutral-border-active; color: @button-neutral-text-active; }
+}
+
+.btn-white {
+    background-color: @button-white-background; border-color: @button-white-border; color: @button-white-text;
+    &:hover, &:focus { background-color: @button-white-background-hover; border-color: @button-white-border-hover; color: @button-white-text-hover;}
+    &:active { background-color: @button-white-background-active; border-color: @button-white-border-active; color: @button-white-text-active; }
+}
+
+.btn-black {
+    background-color: @button-black-background; border-color: @button-black-border; color: @button-black-text;
+    &:hover, &:focus { background-color: @button-black-background-hover; border-color: @button-black-border-hover; color: @button-black-text-hover;}
+    &:active { background-color: @button-black-background-active; border-color: @button-black-border-active; color: @button-black-text-active; }
+}
+
+.btn-primary {
+    background-color: @button-primary-background; border-color: @button-primary-background; color: @button-primary-text;
+    &:hover, &:focus { background-color: @button-primary-background-hover; border-color: @button-primary-background-hover; color: @button-primary-text-hover;}
+    &:active { background-color: @button-primary-background-active; border-color: @button-primary-background-active; color: @button-primary-text-active; }
+}
+
+// Cart / Registry / Wishlist Buttons
+.btn-checkout,
+.btn-cart,
+.btn-add-to-cart {    
+    background-color: @button-cart-background; border-color: @button-cart-background; color: @button-cart-text;
+    &:hover, &:focus { background-color: @button-cart-background-hover; border-color: @button-cart-background-hover; color: @button-cart-text-hover;}
+    &:active { background-color: @button-cart-background-active; border-color: @button-cart-background-active; color: @button-cart-text-active; }
+}
+
+.btn-add-to-registry {
+    background-color: @button-registry-background; border-color: @button-registry-background; color: @button-registry-text;
+    &:hover, &:focus { background-color: @button-registry-background-hover; border-color: @button-registry-background-hover; color: @button-registry-text-hover;}
+    &:active { background-color: @button-registry-background-active; border-color: @button-registry-background-active; color: @button-registry-text-active; }
+}
+
+.btn-add-to-wishlist {    
+    background-color: @button-wishlist-background; border-color: @button-wishlist-background; color: @button-wishlist-text;
+    &:hover, &:focus { background-color: @button-wishlist-background-hover; border-color: @button-wishlist-background-hover; color: @button-wishlist-text-hover;}
+    &:active { background-color: @button-wishlist-background-active; border-color: @button-wishlist-background-active; color: @button-wishlist-text-active; }
+}
+
+// Dropdown Buttons
+.dropdown-toggle {
+    i { padding: 0;}
+    .text { padding: 0 6px;}   
+}
+
+// Full Width Mobile Button     
+@media (max-width: @screen-xs-max) {
+    .btn-group-mobile {
+        display: inline-block; padding-left: 0; padding-right: 0; width: 100%;
+    }
+    .btn-mobile {
+        display: block; padding-left: 0; padding-right: 0; width: 100%;        
+        &.dropdown-toggle {
+            i { float: left; padding: 4px 0 0 0; width: 10%; }
+            .text { float: left; padding: 0; width: 80%; }
+            i.fa-caret-down { float: right;}
+        }
+    }    
+}
+
+.actions-header { margin-bottom: 20px;}
+
+.actions-footer { margin-top: 20px;}
+
+// 1.5
+// Tabs
+// --------------------------------------------------
+
+ul.nav-tabs {
+    > li {
+        // Default (clickable)
+        > a {
+            background-color: @tab-background-color;
+            color: @tab-text-color;
+            border-bottom: 1px solid #dddddd;
+            &:hover, &:focus {
+                background-color: @tab-background-color-hover;
+                color: @tab-text-color-hover;
+            }
+            &:active {
+                background-color: @tab-background-color-active;
+                color: @tab-text-color-active;
+            }
+        }
+        // Disabled (not clickable)
+        &.active > a {
+            &:hover, &:focus {
+                background-color: @tab-background-color-disabled;
+                color: @tab-text-color-disabled;
+            }
+        }
+    }    
+}
+
+// Tab Content
+div.tab-content {
+    padding: 20px;
+}
+
+// 1.6
+// Tables
+// --------------------------------------------------
+
+table {
+    tr {
+        td {}
+        th {}
+    }
+}
+
+
+// 1.7
+// Lists
+// --------------------------------------------------
+
+ul {
+    li { }
+}
+
+ol {
+    li {}
+}
+
+
+// 1.8
+// Thumbnails
+// --------------------------------------------------
+
+.thumbnail { border: 0 none;}
+img { border: 0 none;}
+img[data-image-swap],
+img[data-image-zoom] {
+    cursor: pointer;
+}
+
+// 1.9
+// Misc
+// --------------------------------------------------
+
+.visually-hidden { /*http://developer.yahoo.com/blogs/ydn/posts/2012/10/clip-your-hidden-content-for-better-accessibility/*/
+position: absolute !important; clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+clip: rect(1px, 1px, 1px, 1px); padding:0 !important; border:0 !important; height: 1px !important; width: 1px !important; overflow: hidden;}
+
+.well { background-color: #ffffff;}
+
+// Page Filters
+.page-filters {
+    padding-top: 10px; padding-bottom: 10px;
+
+    // Search Within
+    .search-within {
+        margin-bottom: 10px;
+
+        // Media Queries
+        @media (min-width: @screen-md-min) {
+            margin-bottom: 0px;
+        }
+    }
+
+
+    // Pagination
+    .pagination { margin-bottom: 0; margin-top: 0;}
+
+    .pagination-bottom,
+    .pagination-top {
+        margin-bottom: 10px; text-align: center;
+
+        // Media Queries
+        @media (min-width: @screen-md-min) {
+            margin-bottom: 0px;
+        }
+    }
+
+
+    // Product Sorting
+    .sorting {
+        text-align: center; margin-bottom: 10px;
+        ul.dropdown-menu { min-width: 50px;}
+        div#items-per-page { margin-left: 10px;}
+
+        // Media Queries
+        @media (min-width: @screen-md-min) {
+        text-align: right;         
+        }
+    }
+}
+
+
+// Alerts
+
+.alert-dismissable {
+
+  // Adjust close link position
+  .close { color: #ffffff; opacity: 1.0; font-size: inherit; }
+}
+
+
+
+// Modals
+.modal-footer { text-align: left; }
