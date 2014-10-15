@@ -24,7 +24,14 @@
 	{{ utils.start_group('Logo, Images, and Colors', 'collapseLogoImagesColor') }}
 		
 		{{ utils.start_subgroup('Logo & Background') }}
-			{{ utils.checkBox("settings[current][logo_images_and_colors][logo_background][logo-custom]", settings.current.branding.logo_background['logo-custom'],"logo-custom") }}
+			{{ utils.checkBoxx('Use a custom logo?','logo-custom','settings[current][logo_images_and_colors][logo_background][logo-custom]', settings.current.logo_images_and_colors.logo_background['logo-custom']) }}
+			{{ utils.uploadFile('Shop Logo (should be less than 700 pixels wide)', 'logo-custom-upload','settings[current][logo_images_and_colors][logo_background][logo-custom-upload]', 'logo.png') }}
+			{{ utils.checkBoxx('Center logo (when main navigation is below)?','ogo-custom-center','settings[current][logo_images_and_colors][logo_background][logo-custom-center]', settings.current.logo_images_and_colors.logo_background['logo-custom-center']) }}
+			{{ utils.checkBoxx('Use a favicon image?','favicon-image','settings[current][logo_images_and_colors][logo_background][favicon-image]', settings.current.logo_images_and_colors.logo_background['favicon-image']) }}
+			{{ utils.uploadFile('Upload a favicon (must be 16px x 16px)', 'favicon-upload', 'settings[current][logo_images_and_colors][logo_background][favicon-upload]', 'favicon.png') }}
+			{{ utils.selectDropdown('Use a background image?','site-bg-image',"settings[current][logo_images_and_colors][logo_background][site-bg-image]", settings.current.logo_images_and_colors.logo_background['site-bg-image'], {'':'No background image', 'custom':'Use custom image (see upload button below' ,'style1':'Use background image of style 1', 'style2':'Use background image of style 2'}) }}
+			{{ utils.uploadFile('Custom background image', 'site-bg-image-custom', 'settings[current][logo_images_and_colors][logo_background][site-bg-image-custom]', 'site-bg-image-custom.png') }}
+			{{ utils.selectDropdown('Background image display style', 'site-bg-image-display', 'settings[current][logo_images_and_colors][logo_background][site-bg-image-display]', settings.current.logo_images_and_colors.logo_background['site-bg-image-display'], { 'tiled':'Tiled', 'full':'Not tiled', 'stretch':'Stretch' }) }}
 		{{ utils.end_subgroup() }}
 
 		{{ utils.start_subgroup('Toolbar') }}
@@ -1796,4 +1803,5 @@
 			</div>
 			{# End additional layouts #}
 {{ utils.end_layout() }}
+{{ utils.initColorpick() }}
 <pre>{{  dump(settings) }}</pre>

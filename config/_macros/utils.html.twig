@@ -22,6 +22,67 @@
   </fieldset>
 {% endmacro %}
 
+{% macro uploadFile(label,id,tree,value) %}
+  <div class="form-group">
+    <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
+    <div class="col-sm-9">
+      <input type="file" id="{{ id }}" name="{{ tree }}" data-max-width="700" data-max-height="600" data-bind="">
+      <p><i class="fa fa-paperclip"></i> <a target="_blank" href="#">{{ value }}</a></p>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro checkBoxx(label,id,tree,value) %}
+  <div class="form-group">
+    <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
+    <div class="col-sm-9">
+      <input type="hidden" name="{{ tree }}" value="0"><input type="checkbox" id="{{ id }}" name="{{ tree }}" value="1"
+      {% if value == true %}
+         checked
+      {% endif %}>
+    </div>
+  </div>
+{% endmacro %}
+
+{# This macro is not working for some dark reasons #}
+{% macro multiRadiobutton(label,id,tree,value,list) %}
+  <div class="form-group">
+    <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
+    <div class="col-sm-9">
+      {% for val,lab in list %}
+      <input type="radio"  name="{{ tree }}" value="{{ val }}"
+        {% if value == val %}
+           checked='checked' 
+        {% endif %}
+        > {{ lab }}
+      {% endfor %}
+    </div>
+    <script>
+    $( document ).ready(function() {
+      $('input[name="{{ tree }}"]').filter('[value="{{ value }}"]').prop('checked', 'checked');
+      //alert($('input[value="{{ value }}"]').val());
+      //$('input[value="{{ value }}"]').prop('checked', 'checked');
+    });
+    </script>
+  </div>
+{% endmacro %}
+
+{% macro selectDropdown(label,id,tree,value,list) %}
+  <div class="form-group">
+    <label for="site-bg-image" class="col-sm-3 control-label">Use a background image?</label>
+    <div class="col-sm-9">
+      <select id="site-bg-image" name="{{ tree }}">
+        {% for val,lab in list %}
+          {% if value == val %}
+            <option value="{{ val }}">{{ lab }}</option>
+          {% else %}
+            <option value="{{ val }}" selected>{{ lab }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+{% endmacro %}
 
 {% macro selectColor(label,id,tree,value) %}
     <div class="form-group"><label class="col-sm-3 control-label">{{ label }}</label><div class="col-sm-9">
