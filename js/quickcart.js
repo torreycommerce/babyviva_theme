@@ -80,7 +80,7 @@ function ajaxCart(data, r) {
     // END CONFIG VARIABLES
 
     var cart_items, cart_item_count = 0, cart_subtotal = 0; // Cart attributes
-
+    console.log(data);
     // Check for items
     var result = $.parseJSON(data);
 
