@@ -140,4 +140,33 @@
     {% endblock %}
     {% block js %}{% endblock %}
 </body>
+{% if 1 == 1 %}
+    {# $beforePreviewPath = substr(Yii::app()->baseUrl,0,strpos(Yii::app()->baseUrl,'/preview')); #}
+    {% set admin_url = '' %}
+    <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgba(0,0,0,0.8);" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand"><a href="#"><img src="'.$beforePreviewPath.'/images/logo-acenda-small.png"></a></div>
+                {# <button class="navbar-btn btn btn-default" onClick="window.location.href=\''.   ($beforePreviewPath?$beforePreviewPath:'/') .'\'; return false;" >Go back to admin</button> #}
+            </div>
+        </div>
+    </nav>
+<script>
+    $(document).ready(function() {
+        var timer=0;
+        timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+        $('#preview-admin-header').hover(function() {
+            clearTimeout(timer);
+        },function() {
+            if(timer) clearTimeout(timer);
+                timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+        })
+        $(window).scroll(function() {
+            $('#preview-admin-header').fadeIn('slow');
+            if(timer) clearTimeout(timer);
+                timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+        });
+    });
+</script>
+{% endif %}
 </html>
