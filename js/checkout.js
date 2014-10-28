@@ -6,8 +6,8 @@ $(function() {
     
     form.submit(function() {
         // Validate the form
-        console.log(form.normalized);
-        console.log($("#custom-address").is(":hidden"));
+        // console.log(form.normalized);
+        // console.log($("#custom-address").is(":hidden"));
         if (!$('.form-horizontal').parsley('isValid')) {
             return false;
         }else{
@@ -32,8 +32,10 @@ $(function() {
         });
     }   
 
+    console.log('Test?');
     // Add/remove constraints based on selected address
     $('#checkout_shipping_address_id, #checkout_billing_address_id, #express_shipping_address_id').change(function() {
+        console.log('Test');
         if ($(this).val() != '') {
             $('#custom-address').slideUp();
             $('#custom-address input[type="text"], #custom-address input[type="tel"]').each(function(index, elm) {

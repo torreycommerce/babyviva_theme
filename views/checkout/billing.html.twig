@@ -52,7 +52,7 @@
                         {% if app.user.getState('shipping_company') == '' %}<br />{% endif %}
                     {% endif %}
                 {% endset %}
-                <div class="row"><div class="col-sm-8 col-md-8 col-lg-8"><fieldset><legend>Credit Card Information</legend><div class="form-group"><div class="col-sm-9 col-sm-offset-3"><img src="{{app.url}}/images/creditcards/visa.png" class="cc-visa"><img src="{{app.url}}/images/creditcards/mastercard.png" class="cc-mastercard"><img src="{{app.url}}/images/creditcards/amex.png" class="cc-amex"><img src="{{app.url}}/images/creditcards/discover.png" class="cc-discover"></div></div><div class="form-group"><label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Card Number
+                <div class="row"><div class="col-sm-8 col-md-8 col-lg-8"><fieldset><legend>Credit Card Information</legend><div class="form-group"><div class="col-sm-9 col-sm-offset-3"><img src="{{app.url}}/{{app.params['theme']['current']}}/images/creditcards/visa.png" class="cc-visa"><img src="{{app.url}}/{{app.params['theme']['current']}}/images/creditcards/mastercard.png" class="cc-mastercard"><img src="{{app.url}}/{{app.params['theme']['current']}}/images/creditcards/amex.png" class="cc-amex"><img src="{{app.url}}/{{app.params['theme']['current']}}/images/creditcards/discover.png" class="cc-discover"></div></div><div class="form-group"><label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Card Number
                                     <span class="text-danger">*</span></label><div class="col-sm-9 col-md-9 col-lg-5">
                                     {{ forms.text('checkout[card_number]', checkout.card_number, {id:'checkout_card_number',class:'form-control parsley-validated', placeholder:"Card Number", required:true, 'parsley-luhn': true, 'parsley-type': 'number'}) }}
                                 </div><div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4"><div class="validation">{{ forms.errorlist(form_errors, 'card_number') }}</div></div></div><div class="form-group"><label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">CVV2
@@ -116,6 +116,7 @@
                                         {{ shipping_address }}
                                     </div></div></fieldset>
                         {{ normalizer.normalizer() }}
+                        {{ dump(tax) }} 
                         <div class="row"><div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-3 col-lg-10 col-lg-offset-3"><div class="actions"><input type="hidden" name="step" value="billing">
                                     {% set works = {} %}
                                     {% if app.user.getState('order_sent') == true %} {% set works = {'disabled': true } %} {% endif %}
@@ -129,4 +130,5 @@
 {% block js %}
     {{ app.asset.js(app.url ~ '/' ~ app.params['theme']['current'] ~ '/js/account.js') }}
     {{ app.asset.js(app.url ~ '/' ~ app.params['theme']['current'] ~ '/js/region.js') }}
+    {{ app.asset.js(app.url ~ '/' ~ app.params['theme']['current'] ~ '/js/checkout.js') }}
 {% endblock %}
