@@ -22,7 +22,7 @@ $('.form-horizontal').cascadingDropdown({
             selector: 'select[id$=state]',
             requires: ['select[id$=country]'],
             source: function(request, response) {
-                $.getJSON(acendaBaseUrl + '/api/region/'+$('select[id$=country]').val()+'/states', request, function(data) {
+                $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
                     var state = $('[name$=\\[state_select\\]]').val();
                     if (state == undefined || state == '') {
                         state = 'CA';

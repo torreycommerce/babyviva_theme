@@ -12,6 +12,6 @@
 
 {% include '/account/addresses/_partials/' ~ action ~ '.html.twig' %}
 {% block js %}
-{{ app.asset.js(app.url ~ '/js/account.js') }}
-{{ app.asset.js(app.url ~ '/js/region.js') }}
+    {{ app.asset.js(app.url ~ '/' ~ app.params['theme']['current'] ~ '/js/account.js') }}
+    {{ app.asset.js(app.url ~ '/' ~ app.params['theme']['current'] ~ '/js/region.js') }}
 {% endblock %}

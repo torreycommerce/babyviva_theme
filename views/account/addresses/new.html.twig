@@ -26,26 +26,14 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% block content %}
 {# Load in the tabs for the page, pass in the name of this page, and make sure it's
 set in the array in /account/_macros/base.html.twig #}
-<div id="customer-account">
-    <div class="row">
+<div id="customer-account"><div class="row">
         {# Begin navigation #}
-        <div class="navigation hidden-xs hidden-sm">
-            <div class="col-md-3 col-lg-2">
+        <div class="navigation hidden-xs hidden-sm"><div class="col-md-3 col-lg-2">
                 {{account.navigation('addresses')}}
-            </div>
-        </div>
+            </div></div>
         {# End navigation #}
         {# Begin content #}
-        <div class="customer-account-address-new">
-            <div class="col-sm-12 col-md-9 col-lg-10">
-                <div class="row">
-                    <div class="col-md-12">
-                        <header>
-                            <h1 class="page-header">New Address</h1>
-                            <p>Create a new address.</p>
-                        </header>
-                    </div>
-                    <div class="col-md-12">
+        <div class="customer-account-address-new"><div class="col-sm-12 col-md-9 col-lg-10"><div class="row"><div class="col-md-12"><header><h1 class="page-header">New Address</h1><p>Create a new address.</p></header></div><div class="col-md-12">
                         {% if app.request.post.address is defined %}
                             {% set post_data = app.request.post.address|merge( {'customer_id':app.user.id} ) %}
                             {% set result = api.post('/customeraddress', post_data) %}
@@ -66,15 +54,11 @@ set in the array in /account/_macros/base.html.twig #}
                             {% endif %}
                         {% endif %}
                         {% include "/account/addresses/_partials/form.html.twig" %}
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </div></div></div></div>
         {# End content #}
-    </div>
-</div>
+    </div></div>
 {% endblock %}
 {% block js %}
-{{ app.asset.js(app.url ~ '/js/account.js') }}
-{{ app.asset.js(app.url ~ '/js/region.js') }}
+    {{ app.asset.js(app.url ~ '/' ~ app.params['theme']['current'] ~ '/js/account.js') }}
+    {{ app.asset.js(app.url ~ '/' ~ app.params['theme']['current'] ~ '/js/region.js') }}
 {% endblock %}
