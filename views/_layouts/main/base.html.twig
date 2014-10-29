@@ -143,7 +143,6 @@
 {% if '/preview/' in app.url %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
-    {{ dump(back_to) }}
     <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgba(0,0,0,0.8);" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
