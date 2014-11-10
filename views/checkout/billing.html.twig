@@ -116,7 +116,6 @@
                                         {{ shipping_address }}
                                     </div></div></fieldset>
                         {{ normalizer.normalizer() }}
-                        {{ dump(tax) }} 
                         <div class="row"><div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-3 col-lg-10 col-lg-offset-3"><div class="actions"><input type="hidden" name="step" value="billing">
                                     {% set works = {} %}
                                     {% if app.user.getState('order_sent') == true %} {% set works = {'disabled': true } %} {% endif %}
