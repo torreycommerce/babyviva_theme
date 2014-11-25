@@ -40,7 +40,7 @@
     <meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
     <meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
 
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{app.url_asset}}/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/datepicker.css" />
     <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/theme.css?v=05092014" />
     <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/fonts/font-awesome/css/font-awesome.min.css" />
