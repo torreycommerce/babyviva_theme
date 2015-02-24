@@ -1,0 +1,76 @@
+<table border="0" cellpadding="0" cellspacing="0" width="640" style="background-color:#FDF9F1; color: #555555; font-family: helvetica, arial, sans-serif;">
+	<!-- Begin email header -->
+	<tr>
+		<td>
+			{% include 'core/header.html.twig' %}
+		</td>
+	</tr>
+	<!-- End email header -->
+	<!-- Begin welcome -->
+	<tr>
+		<td style="padding: 20px; vertical-align: top;">
+			<h1 style="color: #333333; font-size: 24px; line-height: 36px; margin: 0;">
+				<a href="{{app.live_url}}" style="text-decoration:none; color:#de2286;">
+					Thank you for subscribing to our newsletter!
+				</a>
+			</h1>
+			<p style="font-size: 14px; line-height: 22px;">
+				Thank you for signing up to receive email updates about upcoming sales. You will be first to know about all of our promotions.
+			</p>
+		</td>
+	</tr>
+	<!-- End title -->
+	<!-- Begin discount coupon -->
+	<tr>
+		<td style="padding: 20px; vertical-align: top;">
+			<h2 style=" font-size: 18px; color: #333333; text-transform: uppercase;">
+				15% off* your entire order
+			</h2>
+		</td>
+	</tr>
+	<tr>
+		<td style="padding-left:20px; vertical-align: top;">
+			<p style="font-size: 14px; line-height: 22px;">
+				As a welcome gift to you please enjoy 15% off* your entire order.<br>
+				To redeem this special offer you must enter the following promo code during checkout<br>
+				BRU15.
+			</p>
+		</td>
+	</tr>
+	<!-- End discount coupon -->
+	<!-- Begin start shopping -->
+	<tr>
+		<td style="height: 34px; padding: 20px 20px 40px 20px;">
+			<a href="{{app.live_url}}" style="background-color: #de2286; color: #FFFFFF; display: inline-block; font-size: 12px; margin-right: 10px; padding: 10px 15px; text-decoration: none; text-transform: uppercase;">
+				Start Shopping Now!
+			</a>
+		</td>
+	</tr>
+	<!-- End start shopping -->
+	<!-- Begin thank you -->
+	<tr>
+		<td style="padding: 20px; vertical-align: top;">
+			<p style="font-size: 14px; line-height: 22px;">
+			Thank you from your friends at {{ site_name }}!<br>
+			Please add us to your email address book to make sure you receive important emails from us.<br>
+			</p>
+		</td>
+	</tr>
+	<!-- End thank you -->
+	<!-- Begin conditions -->
+	<tr>
+		<td style="padding: 10px 20px; vertical-align: top;">
+			<p style="font-size: 12px; line-height: 16px;">
+				* May exclude certain brands and products. Subject to change without notice.
+			</p>
+		</td>
+	</tr>		
+	<!-- End Conditions -->
+	<!-- Begin email footer -->
+	<tr>
+		<td>
+			{% include 'core/footer.html.twig' %}
+		</td>
+	</tr>
+	<!-- End email footer -->
+</table>
