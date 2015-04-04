@@ -4,7 +4,7 @@
 {# Begin desktop nav #}
 <nav id="nav-desktop-main" class="col-lg-9 col-md-9 hidden-sm hidden-xs">
     <ul class="nav navbar-nav">
-        {% for main_category,items in categories if main_category != "clearance" %}            
+        {% for main_category,items in categories if main_category != "clearance" %}
         {% if items|length %}
         {# Begin dropdown #}
         <li class="dropdown">
@@ -15,7 +15,7 @@
                 {% for category,subitems in items %}
                 {% set i = i + 1 %}
                 <li>
-                    <a tabindex="-1" href="{{app.url}}/category/{{main_category}}/{{category}}">{{category|replace('-',' ')|title}}</a>
+                    <a tabindex="-1" href="{{app.url}}/category/{{category}}">{{category|replace('-',' ')|title}}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -26,7 +26,7 @@
             <a href="{{app.url}}/category/{{main_category}}">{{main_category|replace('-',' ')|title}}</a>
         </li>
         {% endif %}
-        {% endfor %}            
+        {% endfor %}
     </ul>
 </nav>
 {# End desktop nav #}
@@ -41,7 +41,7 @@
                 </button>
             </span>
         </div>
-    </form>    
+    </form>
 </div>
 {# End search bar #}
 
@@ -108,7 +108,7 @@
                 <ul id="submenu-{{ id }}">
                     {% for category,subitems in items %}
                     <li>
-                        <a tabindex="-1" href="{{app.url}}/category/{{main_category}}/{{category}}">
+                        <a tabindex="-1" href="{{app.url}}/category/{{category}}">
                             <i class="fa fa-star-o"></i>
                             {{category|replace('-',' ')|title}}
                         </a>
