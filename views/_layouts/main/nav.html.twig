@@ -13,18 +13,23 @@
             </a>
             <ul id="category_item" class="dropdown-menu">
                 {% for category,subitems in items %}
-                {% set i = i + 1 %}
-                <li>
-                    <a tabindex="-1" href="{{app.url}}/category/{{category}}">{{category|replace('-',' ')|title}}</a>
-                </li>
+                    {% set i = i + 1 %}
+                    {% set type = category|split('/') %}
+                    <li>
+                        {% if type|length == 1 %}
+                            <a tabindex="-1" href="{{app.url}}/category/{{category}}">{{category|replace('-',' ')|title}}</a>
+                        {% else %}
+                            <a tabindex="-1" href="{{app.url}}/category/{{category}}">{{type|last|replace('-',' ')|title}}</a>
+                        {% endif %}
+                    </li>
                 {% endfor %}
             </ul>
         </li>
         {# End dropdown #}
         {% else %}
-        <li>
-            <a href="{{app.url}}/category/{{main_category}}">{{main_category|replace('-',' ')|title}}</a>
-        </li>
+            <li>
+                <a href="{{app.url}}/category/{{main_category}}">{{main_category|replace('-',' ')|title}}</a>
+            </li>
         {% endif %}
         {% endfor %}
     </ul>
@@ -107,11 +112,13 @@
             {% if items|length %}
                 <ul id="submenu-{{ id }}">
                     {% for category,subitems in items %}
+                    {% set type = category|split('/') %}
                     <li>
-                        <a tabindex="-1" href="{{app.url}}/category/{{category}}">
-                            <i class="fa fa-star-o"></i>
-                            {{category|replace('-',' ')|title}}
-                        </a>
+                        {% if type|length == 1 %}
+                            <a tabindex="-1" href="{{app.url}}/category/{{category}}"><i class="fa fa-star-o"></i> {{category|replace('-',' ')|title}}</a>
+                        {% else %}
+                            <a tabindex="-1" href="{{app.url}}/category/{{category}}"><i class="fa fa-star-o"></i> {{type|last|replace('-',' ')|title}}</a>
+                        {% endif %}
                     </li>
                     {% endfor %}
                 </ul>
