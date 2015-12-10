@@ -148,9 +148,11 @@ $(document).ready(function() {
       var src = $(this).attr('data-image-swap-src');
       var el = $('#'+$(this).attr('data-image-swap'));
       var srczoom = $(this).attr('data-image-swap-zoom');
+      var alt = $(this).attr('alt');
       el.removeClass('zoomed',1000);
       el.panzoom('reset');
       el.attr('src',src);
+      el.attr('alt',alt);
       el.attr('data-image-zoom',srczoom);
    });
 
@@ -426,20 +428,6 @@ $('.btn-add-to-cart').click(function (e) {
   $('.panel-tabs a[href="#children"]').tab('show');
 })
 
-// ZeroClipboard for wishlist/registry share links
-$(function() {
-var client = new ZeroClipboard( $('#btn-share'), {
-  moviePath: acendaBaseThemeUrl + "/swf/ZeroClipboard.swf"
-});
-
-client.on( "load", function(client) {
-  client.on( "complete", function(client, args) {
-      $('#btn-share').popover('show');
-      setTimeout(function(){$('#btn-share').popover('hide');}, 3000);
-  } );
-} );
-});
-
 //Newsletter Validator
 $(document).ready(function() {
   $('#NewsLSub').click(function () {
@@ -451,6 +439,63 @@ $(document).ready(function() {
   });
   $("#NewsLInput").keyup(function(){
       $(this).parent().removeClass('has-error');
+  });
+});
+
+//Search Autocomplete
+$(document).ready(function() {
+  var searchCompleterCategory = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: {
+      url: acendaBaseUrl+'/api/category/tree',
+      ttl: 300000, //5 min cache
+      transform: function (response) {
+        res = [];
+        function _getTreeItems(items,res) {
+            for(var k in items) {
+                var v = k.replace('-',' ').replace('/',' > ').replace(/\w+/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+                res.push({'value':v, 'url':acendaBaseUrl+'/category/'+k});
+                _getTreeItems(items[k],res);
+            }
+        }
+        _getTreeItems(response.result,res);
+        return res;
+      }
+    }
+  });
+
+  var searchCompleterProduct = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: acendaBaseUrl+'/api/catalog/autocomplete?query=%QUERY',
+      wildcard: '%QUERY',
+      transform: function (response) {
+        res = [];
+        for (var i = 0, len = response.result.length; i < len; i++) {
+          res.push({'value':response.result[i]});
+        }
+        return res;
+      }
+    }
+  });
+
+  $('.search-autocomplete').typeahead(null, 
+    {
+      name: 'search',
+      display: 'value',
+      source: searchCompleterCategory
+    },
+    {
+      name: 'search',
+      display: 'value',
+      source: searchCompleterProduct
+    }
+  ).on('typeahead:selected', function(event, selection) {
+    if('url' in selection) {
+      window.location=selection.url;
+    }
   });
 });
 

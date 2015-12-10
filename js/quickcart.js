@@ -1,4 +1,3 @@
-
 var cartCloseTimeout;
 var cartTriggerTimeout;
 
@@ -80,7 +79,7 @@ function ajaxCart(data, r) {
     // END CONFIG VARIABLES
 
     var cart_items, cart_item_count = 0, cart_subtotal = 0; // Cart attributes
-    console.log(data);
+    //console.log(data);
     // Check for items
     var result = $.parseJSON(data);
 
@@ -114,8 +113,10 @@ function ajaxCart(data, r) {
         var product_cart_id = []; // product_id -> cart_id array
 
         if (show_all) {
+            //console.log('showall');
             items = cart_items;
         } else {
+            //console.log('else');
             items = $('#productForm').serializeArray(); // Items that were added
         }
 
@@ -126,7 +127,7 @@ function ajaxCart(data, r) {
                 $('div.mobile-popover').attr('data-content','<div class="popover-close"><div class="row"><div class="col-md-12"><a onclick="$(\'li.cart\').popover(\'hide\')" id="ajaxcart-close" class="btn btn-danger btn-sm pull-right fa fa-times"></a></div></div></div><h5>Your cart is empty.</h5>').popover('show');
             return;
         }
-
+        //console.log(items);
         for (var i = 0; i < items.length; i++) {
             product_cart_id[items[i].product_id] = i;
             // Go through and get the id, thumbnail and quantity
@@ -148,6 +149,8 @@ function ajaxCart(data, r) {
             }
             product_attr[product_id] = {quantity:product_quantity};
             // Generate a request for product data
+            //console.log('retrieve variant');
+            //console.log(product_id);
             var request = $.getJSON(acendaBaseUrl + '/api/variant/' + product_id)
             .done(function(data) {
                 response.push(data.result);
@@ -161,7 +164,7 @@ function ajaxCart(data, r) {
                 return product_cart_id[a.id] > product_cart_id[b.id];
             });
             for (var i = 0; i < response.length; i++) {
-                var product_name = response[i].title;
+                var product_name = response[i].brand + ' ' + response[i].title;
                 var product_price = parseFloat(response[i].price).toFixed(2);
                 var product_thumbnail = response[i].thumbnail;
                 var product_id = response[i].id;

@@ -1,12 +1,10 @@
-
 {% macro begin(name,action='',method='post',attributes=[]) %}
 {% spaceless %}
-    {% set error = attributes.error|default(api.error) %}
-    {% set data =  app.request.post[name]|default(attributes.data) %}
-    {% do app.form.set(name, action, method, attributes, data, error) %}
-
-    {% set defined_attributes = ['name','action','method','class','enctype','data','error'] %}
-    <form name="{{name|e}}" novalidate parsley-validate action="{{action|e}}" method="{{method|upper}}" class="form-horizontal {{attributes.class|e}}" {% if method == 'post' %}enctype="multipart/form-data" {% endif %}{% for key,value in attributes if key not in defined_attributes %} {{key}}="{{value|e}}"{% endfor %}>
+{% set error = attributes.error|default(api.error) %}
+{% set data = app.request.post[name]|default(attributes.data) %}
+{% do app.form.set(name, action, method, attributes, data, error) %}
+{% set defined_attributes = ['name','action','method','class','enctype','data','error'] %}
+<form name="{{name|e}}" novalidate parsley-validate action="{{action|e}}" method="{{method|upper}}" class="form-horizontal {{attributes.class|e}}" {% if method == 'post' %}enctype="multipart/form-data" {% endif %}{% for key,value in attributes if key not in defined_attributes %} {{key}}="{{value|e}}"{% endfor %}>
     {% if method == 'post'%}
         <input type="hidden" name="request_token" value="{{ app.request.token() }}">
     {% endif %}
@@ -21,10 +19,7 @@
     {% set field = app.form.getField(type,name,value,attributes) %}
 
     {% if attributes.input_only != true %}
-    <div class="form-group{% if field.error %} has-error{% endif %}">
-        <label for="{{field.id}}" class="col-lg-4 control-label">{{field.label}}&nbsp;{% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
-
-        <div class="col-lg-8">
+    <div class="form-group{% if field.error %} has-error{% endif %}"><label for="{{field.id}}" class="col-lg-4 control-label">{{field.label}}&nbsp;{% if field.required %}<span class="text-danger">*</span>{% endif %}</label><div class="col-lg-8">
     {% endif %}
             {% if attributes.before or attributes.after %}
             <div class="input-group">
@@ -56,11 +51,7 @@
 
     {% set field = app.form.getField('textarea',name,value,attributes) %}
 
-    <div class="form-group{% if field.error %} has-error{% endif %}">
-        <label for="{{ field.id }}" class="col-md-4 control-label">{{field.label}} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
-        <div class="col-md-8">
-            <textarea id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>{{ field.value }}</textarea>
-        </div>
+    <div class="form-group{% if field.error %} has-error{% endif %}"><label for="{{ field.id }}" class="col-md-4 control-label">{{field.label}} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label><div class="col-md-8"><textarea id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>{{ field.value }}</textarea></div>
         {{ elements.field_extras(field) }}
     </div>
 {% endspaceless %}
@@ -73,9 +64,7 @@
     {% set field = app.form.getField('select',name,value,attributes) %}
     
     {% if attributes.input_only != true %}
-    <div class="form-group{% if field.error %} has-error{% endif %}">
-        <label for="{{ field.id }}" class="col-md-4 control-label">{{ field.label}} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
-        <div class="col-md-8">
+    <div class="form-group{% if field.error %} has-error{% endif %}"><label for="{{ field.id }}" class="col-md-4 control-label">{{ field.label}} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label><div class="col-md-8">
     {% endif %}
             <select id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>
                 {% for key,item in selection %}
@@ -99,15 +88,11 @@
 
     {% set field = app.form.getField('select',name,value,attributes) %}
 
-    <div class="form-group{% if field.error %} has-error{% endif %}">
-        <label for="{{ field.id }}" class="col-md-4 control-label">{{ field.label }} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
-        <div class="col-md-8">
-            <select multiple id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>
+    <div class="form-group{% if field.error %} has-error{% endif %}"><label for="{{ field.id }}" class="col-md-4 control-label">{{ field.label }} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label><div class="col-md-8"><select multiple id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>
             {% for key,item in selection %}
                 <option value="{{key|e}}"{% if key in field.value %} selected="selected"{% endif %}>{{ item }}</option>
             {% endfor %}
-            </select>
-        </div>
+            </select></div>
         {{ elements.field_extras(field) }}
     </div>
 
@@ -124,13 +109,8 @@
         {% for key,item in selection %}
         {% set elm_counter = elm_counter + 1 %}
 
-        <div class="col-md-offset-4 col-md-8">
-            <div class="radio">
-                <label class="control-label">
-                    <input type="radio" id="{{ field.id }}" name="{{ field.name }}[]" value="{{ key|e }}" class="{{ field.class }}" {% if key in value %} checked="checked"{% endif %}/>
-                    {{ item }}</label>
-            </div>
-        </div>
+        <div class="col-md-offset-4 col-md-8"><div class="radio"><label class="control-label"><input type="radio" id="{{ field.id }}" name="{{ field.name }}[]" value="{{ key|e }}" class="{{ field.class }}" {% if key in value %} checked="checked"{% endif %}/>
+                    {{ item }}</label></div></div>
         {% endfor %}
         {{ elements.field_extras(field) }}
     </div>
@@ -143,15 +123,8 @@
 
     {% set field = app.form.getField('checkbox',name,value,attributes) %}
 
-    <div class="form-group{% if field.error %} has-error{% endif %}">
-        <div class="col-md-offset-4 col-md-8">
-            <div class="checkbox">
-                <label class="control-label">
-                    <input type="hidden" name="{{ field.name }}" value="" />
-                    <input type="checkbox" name="{{ field.name }}" value="{{ field.attributes.value|default('1')|e }}" class="{{ field.class }}" {% if field.value %} checked="checked"{% endif %}/>
-                    {{ field.label }}</label>
-            </div>
-        </div>
+    <div class="form-group{% if field.error %} has-error{% endif %}"><div class="col-md-offset-4 col-md-8"><div class="checkbox"><label class="control-label"><input type="hidden" name="{{ field.name }}" value="" /><input type="checkbox" name="{{ field.name }}" value="{{ field.attributes.value|default('1')|e }}" class="{{ field.class }}" {% if field.value %} checked="checked"{% endif %}/>
+                    {{ field.label }}</label></div></div>
         {{ elements.field_extras(field) }}
     </div>
 {% endspaceless %}
@@ -167,13 +140,8 @@
         {% for key,item in selection %}
         {% set elm_counter = elm_counter + 1 %}
 
-        <div class="col-md-offset-4 col-md-8">
-            <div class="checkbox">
-                <label class="control-label">
-                    <input type="checkbox" id="{{ field.id }}" name="{{ field.name }}[]" value="{{ key|e }}" class="{{ field.class }}" {% if key in field.value %} checked="checked"{% endif %}/>
-                    {{ item }}</label>
-            </div>
-        </div>
+        <div class="col-md-offset-4 col-md-8"><div class="checkbox"><label class="control-label"><input type="checkbox" id="{{ field.id }}" name="{{ field.name }}[]" value="{{ key|e }}" class="{{ field.class }}" {% if key in field.value %} checked="checked"{% endif %}/>
+                    {{ item }}</label></div></div>
         {% endfor %}
         {{ elements.field_extras(field) }}
     </div>
@@ -198,10 +166,7 @@
     {% set field = app.form.getField('button',name,value,attributes) %}
 
     {{ elements.errors() }}
-    <div class="form-group">
-        <div class="col-md-offset-4 col-md-8">
-            <button type="submit" id="{{ field.id }}" name="{{ field.name }}" value="{{ field.value }}" class="btn btn-default {{field.class}}" {{field.attributes}} >{{ field.label }}</button>
-        </div>
+    <div class="form-group"><div class="col-md-offset-4 col-md-8"><button type="submit" id="{{ field.id }}" name="{{ field.name }}" value="{{ field.value }}" class="btn btn-default {{field.class}}" {{field.attributes}} >{{ field.label }}</button></div>
         {{ elements.field_extras(field) }}
     </div>
 {% endspaceless %}
@@ -224,15 +189,11 @@
 {% macro field_extras(field) %}
 {% spaceless %}
     {% if field.error %}
-    <div class="col-md-offset-4 col-md-8">
-        <span class="text-danger">{{field.error}}</span>
-    </div>
+    <div class="col-md-offset-4 col-md-8"><span class="text-danger">{{field.error}}</span></div>
     {% endif %}
 
     {% if field.help %}
-    <div class="col-md-offset-4 col-md-8">
-        <p class="help-block">{{field.help}}</p>
-    </div>
+    <div class="col-md-offset-4 col-md-8"><p class="help-block">{{field.help}}</p></div>
     {% endif %}
 {% endspaceless %}
 {% endmacro %}
@@ -350,8 +311,7 @@
                 {% endif %}            
                 <span id="rating-star-{{ loop.index }}" class="star-rating-star glyphicon {{glyph}} {{ class }}"></span>
             {% endfor %}
-        </div>            
-    </div>
+        </div></div>
 {% endmacro %}
 
 

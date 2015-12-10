@@ -13,7 +13,7 @@ Date: {{ order.date_created }}
 
 --------------------------------------------------------------------------
 {% for item in items %}
-URL: {{app.url}}{{products[item.product_id].0.url}}
+URL: {{ params["url"]["current"] }}{{products[item.product_id].0.url}}
 SKU: {{item.sku}}
 Item name: {{ item.name }}
 Price: ${{ item.price }}

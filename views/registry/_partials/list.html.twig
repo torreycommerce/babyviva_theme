@@ -233,7 +233,7 @@
         <div class="row">
             <div class="col-md-12 text-right">
                 {% if registry.privacy == 'public' or registry.privacy == 'unlisted' %}
-                <a class="btn btn-default" id="btn-share" href="#" data-placement="top" data-content="A link to this registry has been copied to the clipboard." data-clipboard-text="{{ app.url}}/registry/{{registry.id}}"><i class="fa fa-share"></i> Share this registry</a>
+                {# @todo: add link and description to share this registry #}
                 {% endif %}
                 {% if registry.customer_id == app.user.id %}
                 <a class="btn btn-default btn-edit editregistryLink" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Manage registry</a>

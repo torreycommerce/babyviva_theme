@@ -2,6 +2,7 @@
     {% spaceless %}
     {% set product =  product|merge({'variant':product.product|values_in('variant')}) %}
     {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
+    {% set product_brand = product.brand | url_encode | replace({'%20':'-','+':'-'}) %}
 
     {% import _self as this %}
     {% import "/_macros/base.html.twig" as base %}
@@ -18,11 +19,7 @@
                 {% endfor %}
             {% endif %}
             {# Begin product image #}               
-            <div class="image">
-                <a class="thumbnail" href="{{app.url}}/product/{{product.slug}}"> 
-                    <img id="product-image-{{product.id}}" src="{{ img_url }}" class="img-responsive" data-image-source="{{ img_url }}">
-                </a>
-            </div>                            
+            <div class="image"><a class="thumbnail" href="{{app.url}}/product/{{product_brand}}/{{product.slug}}"><img id="product-image-{{product.id}}" src="{{ img_url }}" class="img-responsive" data-image-source="{{ img_url }}"></a></div>                            
             {# End product image #}
 
             {# There is no point in having a carousel without an image, so it is moved inside here #}
@@ -34,23 +31,15 @@
         {% endif %}
         {% if 'details' in options %}
             {# Begin product details #}
-            <a href="{{app.url}}/product/{{product.slug}}">
-                <header>
-                    <h5 class="product-name">{{product.name}}</h5>
-                    <div class="brand">{{product.brand}}</div>
-                </header>
-                <div class="pricing">
+            <a href="{{app.url}}/product/{{product_brand}}/{{product.slug}}"><header><h5 class="product-name">{{product.name}}</h5><div class="brand">{{product.brand}}</div></header><div class="pricing">
                     {% if product.attributes.price %}
                     <div class="price">{{ this.price(product.attributes.price) }}</div>
                     {% endif %}
                     {% if product.attributes.price.0 >= 100 %}
-                    <div class="price-per-month hidden-xs">
-                        <span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span>
-                    </div>
+                    <div class="price-per-month hidden-xs"><span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span></div>
                     {% endif %}
                     {% if product.attributes.compare_price|max - product.attributes.price|max > 1  %}
-                    <div class="price-regular hidden-xs">Compare at {{ this.price(product.attributes.compare_price) }}</div>
-                    <div class="percent hidden-xs">
+                    <div class="price-regular hidden-xs">Compare at {{ this.price(product.attributes.compare_price) }}</div><div class="percent hidden-xs">
                         Save up to {{ this.saveprice(product.attributes.save_price) }} {{ this.savepercent(product.attributes.save_percent) }}
                     </div>
                     {% endif %}                
@@ -72,30 +61,18 @@
 {% if product.attributes.color|length > 1 %}
     {% if product.variant is not empty %}
         {% set carouselHasNext = false %}
-        <div class="color-carousel hidden-sm hidden-xs">
-            <div id="color-image-carousel-{{product.id}}" class="col-xs-6 col-sm-10 carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="item active">
+        <div class="color-carousel hidden-sm hidden-xs"><div id="color-image-carousel-{{product.id}}" class="col-xs-6 col-sm-10 carousel slide" data-ride="carousel"><div class="carousel-inner"><div class="item active">
                         {% for item,child in product.variant if child.status == 'active' and child.images is not empty %}
-                        <div class="thumbnail col-xs-2">
-                            <img src="{{ child.thumbnail }}" class="img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ child.thumbnail }}">
-                        </div>
+                        <div class="thumbnail col-xs-2"><img src="{{ child.thumbnail }}" class="img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ child.thumbnail }}"></div>
                         {% set carouselblock = carouselblock + 1 %}
                         {% if carouselblock is divisibleby(6) and product.variant[(item + 1)] is defined %}
                             {% set carouselHasNext = true %}
-                            </div>
-                            <div class="item">
+                            </div><div class="item">
                         {% endif %}
                         {% endfor %}
-                    </div>
-                </div>
-            </div>
+                    </div></div></div>
             {% if carouselHasNext == true %}
-            <div class="col-xs-1 thumbnail">
-                <a class="btn btn-info" href="#color-image-carousel-{{product.id}}" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-            </div>
+            <div class="col-xs-1 thumbnail"><a class="btn btn-info" href="#color-image-carousel-{{product.id}}" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a></div>
             {% endif %}
         </div>
     {% endif %}

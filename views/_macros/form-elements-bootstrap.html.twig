@@ -3,11 +3,10 @@
 {% for key,value in attributes %} {{key}}="{{value|e}}"{% endfor %}
 {% endspaceless %}
 {% endmacro %}
-
 {% macro begin(name,action='',method='post',attributes=[]) %}
 {% spaceless %}
-    {% import _self as elements %}
-    <form name="{{name|e}}" novalidate parsley-validate action="{{action|e}}" method="{{method|upper}}" {% if method == 'post' %}enctype="multipart/form-data" {% endif %} {{ elements._attrHtml(attributes) }}>
+{% import _self as elements %}
+<form name="{{name|e}}" novalidate parsley-validate action="{{action|e}}" method="{{method|upper}}" {% if method == 'post' %}enctype="multipart/form-data" {% endif %} {{ elements._attrHtml(attributes) }}>
     {% if method == 'post'%}
         <input type="hidden" name="request_token" value="{{ app.request.token() }}">
     {% endif %}
@@ -74,8 +73,7 @@
     {# { element.checkbox('test_checkbox')}} #}
     {% import _self as elements %}
 
-    <input type="hidden" name="{{ name }}" value="">
-    <input data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="checkbox" name="{{ name }}" value="{{ value|default('1')|e }}" {{ elements._attrHtml(attributes) }}{{ check }}>
+    <input type="hidden" name="{{ name }}" value=""><input data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="checkbox" name="{{ name }}" value="{{ value|default('1')|e }}" {{ elements._attrHtml(attributes) }}{{ check }}>
 {% endspaceless %}
 {% endmacro %}
 
@@ -235,8 +233,7 @@
                 {% endif %}
                 <span id="rating-star-{{ loop.index }}" class="star-rating-star glyphicon {{glyph}} {{ class }}"></span>
             {% endfor %}
-        </div>
-    </div>
+        </div></div>
 {% endmacro %}
 
 {% macro captcha() %}
